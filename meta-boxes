@@ -1,0 +1,336 @@
+<?php
+
+function addinv_add_post_metabox(){
+
+	add_meta_box(
+		'addinv_meta',
+		'Add an Item',
+		'addinv_meta_callback',
+		'addinv',
+		'normal',
+		'high'
+				);
+}
+add_action('add_meta_boxes', 'addinv_add_post_metabox');
+
+function addinv_meta_callback($post){
+	wp_nonce_field(basename(__FILE__), 'addinv_nonce_field');
+	$addinv_stored_meta = get_post_meta( $post -> ID);
+	
+?>
+    <div>
+    	<!--ID-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-id" class="addinv-row-title">ID</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-id" id="addinv-id" value="<?php if (! empty ($addinv_stored_meta['adddinv-id'] ) ) echo esc_attr( $addinv_stored_meta['addinv-id'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Categories-->
+    	<div class="meta-row">
+			<div class="meta-th">
+            	<label for="addinv-categories" class="addinv-row-title">Categories</label><br />
+			</div>
+			<div class="meta-td">
+              Please make sure you add this item to a Category. <br />
+              Or this item will not appear on the listings.
+            </div>
+    	</div>
+    	<!--Year-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-year" class="addinv-row-title">Year</label>
+            </div>
+            <div class="meta-td">
+            	<input type="number" name="addinv-year" id="addinv-year" size="4" min="1900" max="2200" value="<?php if (! empty ($addinv_stored_meta['addinv-year'] ) ) echo esc_attr( $addinv_stored_meta['addinv-year'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Make-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-make" class="addinv-row-title">Make</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-make" id="addinv-make" value="<?php if (! empty ($addinv_stored_meta['adddinv-make'] ) ) echo esc_attr( $addinv_stored_meta['addinv-make'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Model-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-model" class="addinv-row-title">Model</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-model" id="addinv-model" value="<?php if (! empty ($addinv_stored_meta['adddinv-model'] ) ) echo esc_attr( $addinv_stored_meta['addinv-model'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Miles-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-miles" class="addinv-row-title">Miles</label>
+            </div>
+            <div class="meta-td">
+            	<input type="number" name="addinv-miles" id="addinv-miles" value="<?php if (! empty ($addinv_stored_meta['adddinv-miles'] ) ) echo esc_attr( $addinv_stored_meta['addinv-miles'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Module-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-module" class="addinv-row-title">Module</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-module" id="addinv-module" value="<?php if (! empty ($addinv_stored_meta['adddinv-module'] ) ) echo esc_attr( $addinv_stored_meta['addinv-module'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Engine Type-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-engine-type" class="addinv-row-title">Engine Type</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-engine-type" id="addinv-engine-type" value="<?php if (! empty ($addinv_stored_meta['adddinv-engine-type'] ) ) echo esc_attr( $addinv_stored_meta['addinv-engine-type'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Cab Access-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-cab-access" class="addinv-row-title">Cab Access</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-cab-access" id="addinv-cab-access" value="<?php if (! empty ($addinv_stored_meta['adddinv-cab-access'] ) ) echo esc_attr( $addinv_stored_meta['addinv-cab-access'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Box Length-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-box-length" class="addinv-row-title">Box Length</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-box-length" id="addinv-box-length" value="<?php if (! empty ($addinv_stored_meta['adddinv-box-length'] ) ) echo esc_attr( $addinv_stored_meta['addinv-box-length'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Transmission-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-transmission" class="addinv-row-title">Transmission</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-transmission" id="addinv-transmission" value="<?php if (! empty ($addinv_stored_meta['adddinv-transmission'] ) ) echo esc_attr( $addinv_stored_meta['addinv-transmission'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Color-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-color" class="addinv-row-title">Color</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-color" id="addinv-color" value="<?php if (! empty ($addinv_stored_meta['adddinv-color'] ) ) echo esc_attr( $addinv_stored_meta['addinv-color'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Drive System-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-drive-system" class="addinv-row-title">Drive System</label>
+            </div>
+            <div class="meta-td">
+            	<input type="text" name="addinv-drive-system" id="addinv-drive-system" value="<?php if (! empty ($addinv_stored_meta['adddinv-drive-system'] ) ) echo esc_attr( $addinv_stored_meta['addinv-drive-system'] [0] ); ?>"/><br /><br />
+            </div>
+    	</div>
+    	<!--Vehicle Options-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-vehicle-options" class="addinv-row-title">Vehicle Option</label><br />
+            </div>
+            <div class="meta-td">
+            *Pick as many as there are needed.*
+            	<table width="500" border="0">
+  					<tr>
+    					<td><input type="checkbox" name="addinv-air-conditioning" value="<?php if (! empty ($addinv_stored_meta['addinv-air-conditioning'] ) ) echo esc_attr( $addinv_stored_meta['addinv-air-conditioning'] [0] ); ?>" checked> Air Conditioning</td>
+                        <td><input type="checkbox" name="addinv-antilock-brakes" value="<?php if (! empty ($addinv_stored_meta['addinv-antilock-brakes'] ) ) echo esc_attr( $addinv_stored_meta['addinv-antilock-brakes'] [0] ); ?>" checked> Antilock Brakes</td>
+    					<td><input type="checkbox" name="addinv-battery-charger" value="<?php if (! empty ($addinv_stored_meta['addinv-battery-charger'] ) ) echo esc_attr( $addinv_stored_meta['addinv-battery-charger'] [0] ); ?>" checked> Battery Charger</td>
+    					<td><input type="checkbox" name="addinv-child-restraint" value="<?php if (! empty ($addinv_stored_meta['addinv-child-restraint'] ) ) echo esc_attr( $addinv_stored_meta['addinv-child-restraint'] [0] ); ?>" checked> Child Restraint</td>
+  					</tr>
+    					<td><input type="checkbox" name="addinv-cruise-control" value="<?php if (! empty ($addinv_stored_meta['addinv-cruise-control'] ) ) echo esc_attr( $addinv_stored_meta['addinv-cruise-control'] [0] ); ?>" checked> Cruise Control</td>
+    					<td><input type="checkbox" name="addinv-cpr-side-seat" value="<?php if (! empty ($addinv_stored_meta['addinv-cpr-side-seat'] ) ) echo esc_attr( $addinv_stored_meta['addinv-cpr-side-seat'] [0] ); ?>" checked> CPR Side Seat</td>
+    					<td><input type="checkbox" name="addinv-inverter" value="<?php if (! empty ($addinv_stored_meta['addinv-inverter'] ) ) echo esc_attr( $addinv_stored_meta['addinv-inverter'] [0] ); ?>" checked> Inverter</td>
+    					<td><input type="checkbox" name="addinv-manager" value="<?php if (! empty ($addinv_stored_meta['addinv-manager'] ) ) echo esc_attr( $addinv_stored_meta['addinv-manager'] [0] ); ?>" checked> Manager</td>
+  					<tr>
+    					<td><input type="checkbox" name="addinv-power-brakes" value="<?php if (! empty ($addinv_stored_meta['addinv-power-brakes'] ) ) echo esc_attr( $addinv_stored_meta['addinv-power-brakes'] [0] ); ?>" checked> Power Brakes</td>
+    					<td><input type="checkbox" name="addinv-power-load" value="<?php if (! empty ($addinv_stored_meta['addinv-power-load'] ) ) echo esc_attr( $addinv_stored_meta['addinv-power-load'] [0] ); ?>" checked> Power Load</td>
+    					<td><input type="checkbox" name="addinv-power-locks" value="<?php if (! empty ($addinv_stored_meta['addinv-power-locks'] ) ) echo esc_attr( $addinv_stored_meta['addinv-power-locks'] [0] ); ?>" checked> Power Locks</td>
+    					<td><input type="checkbox" name="addinv-power-steering" value="<?php if (! empty ($addinv_stored_meta['addinv-power-steering'] ) ) echo esc_attr( $addinv_stored_meta['addinv-power-steering'] [0] ); ?>" checked> Power Steering</td>
+  					</tr>
+ 					<tr>
+    					<td><input type="checkbox" name="addinv-power-windows" value="<?php if (! empty ($addinv_stored_meta['addinv-power-windows'] ) ) echo esc_attr( $addinv_stored_meta['addinv-power-windows'] [0] ); ?>" checked> Power Windows</td>
+    					<td><input type="checkbox" name="addinv-seat" value="<?php if (! empty ($addinv_stored_meta['addinv-seat'] ) ) echo esc_attr( $addinv_stored_meta['addinv-seat'] [0] ); ?>" checked> Seat</td>
+    					<td></td>
+    					<td></td>
+  					</tr>
+				</table><br /><br />
+            </div>
+    	</div>
+    	<!--Summary-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-summary" class="addinv-row-title">Summary</label>
+            </div>
+				<div class="meta-editor"></div>
+					<?php
+						$content = get_post_meta( $post->ID, 'summary', true );
+						$editor = 'summary';
+						$settings = array(
+							'textarea_rows' => 8,
+							'media_buttons' => false,
+										);
+						wp_editor( $content, $editor, $settings);
+						?><br /><br />
+				</div>    	
+        	</div>
+    	<!--Main Image-->
+    	<div class="meta-row">
+			<div class="meta-th">
+            	<label for="addinv-main-image" class="addinv-row-title">Main Picture</label><br />
+			</div>
+			<div class="meta-td">
+              <p>Please make sure you add a picture to the Featured Image section. <br />
+              Or there will not be a picture for the listings.</p>
+            </div>
+    	</div>
+    	<?php /*
+        <!--Slider-->
+    	<div class="meta-row">
+        	<div class="meta-th">
+            	<label for="addinv-slider" class="addinv-row-title">Slider</label><br />
+            </div>
+            <div class="meta-td">
+            	*These will be the Images for the Slider.*<br />
+				<div class="uploader">
+					<input id="addinv_slider" name="settings[addinv_slider]" type="text" />
+					<input id="addinv_slider_button" class="button" name="addinv_slider_button" type="text" value="Upload" />
+				</div>
+			</div>
+    	</div>
+		*/ ?>
+    </div>
+<?php
+}
+	
+function addinv_meta_save($post_id){
+	
+		//Checks save status
+		$is_autosave = wp_is_post_autosave($post_id);
+		$is_revision = wp_is_post_revision($post_id);
+		$is_valid_nonce = (isset($_POST['addinv_nonce_field'] ) && wp_verify_nonce($_POST['addinv_nonce_field'], basename(__FILE__) ) ) ? 'true' : 'false';
+		
+		//Exits script depending on save status
+		if ($is_autosave || $is_revision || !$is_vaild_nonce) {
+			return;
+		}
+		
+		if (isset($_POST['addinv-id'] ) ) {
+			update_post_meta($post_id, 'addinv-id', sanitize_text_field( $_POST['addinv-id'] ) );
+		}
+		
+		if (isset($_POST['addinv-year'] ) ) {
+			update_post_meta($post_id, 'addinv-year', sanitize_text_field( $_POST['addinv-year'] ) );
+		}
+		
+		if (isset($_POST['addinv-make'] ) ) {
+			update_post_meta($post_id, 'addinv-make', sanitize_text_field( $_POST['addinv-make'] ) );
+		}
+		
+		if (isset($_POST['addinv-model'] ) ) {
+			update_post_meta($post_id, 'addinv-model', sanitize_text_field( $_POST['addinv-model'] ) );
+		}		
+		
+		if (isset($_POST['addinv-miles'] ) ) {
+			update_post_meta($post_id, 'addinv-miles', sanitize_text_field( $_POST['addinv-miles'] ) );
+		}
+		
+		if (isset($_POST['addinv-module'] ) ) {
+			update_post_meta($post_id, 'addinv-module', sanitize_text_field( $_POST['addinv-module'] ) );
+		}
+		
+		if (isset($_POST['addinv-engine-type'] ) ) {
+			update_post_meta($post_id, 'addinv-engine-type', sanitize_text_field( $_POST['addinv-engine-type'] ) );
+		}
+		
+		if (isset($_POST['addinv-cab-access'] ) ) {
+			update_post_meta($post_id, 'addinv-cab-access', sanitize_text_field( $_POST['addinv-cab-access'] ) );
+		}
+		
+		if (isset($_POST['addinv-box-length'] ) ) {
+			update_post_meta($post_id, 'addinv-box-length', sanitize_text_field( $_POST['addinv-box-length'] ) );
+		}
+		
+		if (isset($_POST['addinv-transmission'] ) ) {
+			update_post_meta($post_id, 'addinv-transmission', sanitize_text_field( $_POST['addinv-transmission'] ) );
+		}
+		
+		if (isset($_POST['addinv-color'] ) ) {
+			update_post_meta($post_id, 'addinv-color', sanitize_text_field( $_POST['addinv-color'] ) );
+		}
+		
+		if (isset($_POST['addinv-drive-system'] ) ) {
+			update_post_meta($post_id, 'addinv-drive-system', sanitize_text_field( $_POST['addinv-drive-system'] ) );
+		}
+		
+		if (isset($_POST['addinv-air-conditioning'] ) ) {
+			update_post_meta($post_id, 'addinv-air-conditioning', sanitize_text_field( $_POST['addinv-air-conditioning'] ) );
+		}
+		
+		if (isset($_POST['addinv-antilock-brakes'] ) ) {
+			update_post_meta($post_id, 'addinv-antilock-brakes', sanitize_text_field( $_POST['addinv-antilock-brakes'] ) );
+		}
+		
+		if (isset($_POST['addinv-battery-charger'] ) ) {
+			update_post_meta($post_id, 'addinv-battery-charger', sanitize_text_field( $_POST['addinv-battery-charger'] ) );
+		}
+		
+		if (isset($_POST['addinv-child-restraint'] ) ) {
+			update_post_meta($post_id, 'addinv-child-restraint', sanitize_text_field( $_POST['addinv-child-restraint'] ) );
+		}
+		
+		if (isset($_POST['addinv-cpr-side-seat'] ) ) {
+			update_post_meta($post_id, 'addinv-cpr-side-seat', sanitize_text_field( $_POST['addinv-cpr-side-seat'] ) );
+		}
+		
+		if (isset($_POST['addinv-cruise-control'] ) ) {
+			update_post_meta($post_id, 'addinv-cruise-control', sanitize_text_field( $_POST['addinv-cruise-control'] ) );
+		}
+		
+		if (isset($_POST['addinv-inverter'] ) ) {
+			update_post_meta($post_id, 'addinv-inverter', sanitize_text_field( $_POST['addinv-inverter'] ) );
+		}
+		
+		if (isset($_POST['addinv-manager'] ) ) {
+			update_post_meta($post_id, 'addinv-manager', sanitize_text_field( $_POST['addinv-manager'] ) );
+		}
+		
+		if (isset($_POST['addinv-power-brakes'] ) ) {
+			update_post_meta($post_id, 'addinv-power-brakes', sanitize_text_field( $_POST['addinv-power-brakes'] ) );
+		}
+		
+		if (isset($_POST['addinv-power-load'] ) ) {
+			update_post_meta($post_id, 'addinv-power-load', sanitize_text_field( $_POST['addinv-power-load'] ) );
+		}
+		
+		if (isset($_POST['addinv-power-locks'] ) ) {
+			update_post_meta($post_id, 'addinv-power-locks', sanitize_text_field( $_POST['addinv-power-locks'] ) );
+		}
+				
+		if (isset($_POST['addinv-power-sterring'] ) ) {
+			update_post_meta($post_id, 'addinv-power-sterring', sanitize_text_field( $_POST['addinv-power-sterring'] ) );
+		}
+
+		if (isset($_POST['addinv-power-windows'] ) ) {
+			update_post_meta($post_id, 'addinv-power-windows', sanitize_text_field( $_POST['addinv-power-windows'] ) );
+		}
+	
+		if (isset($_POST['addinv-seat'] ) ) {
+			update_post_meta($post_id, 'addinv-seat', sanitize_text_field( $_POST['addinv-seat'] ) );
+		}
+		
+	}
+add_action('save_post', 'addinv_save_meta');
