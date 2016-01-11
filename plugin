@@ -1,0 +1,38 @@
+<?php
+/**
+* Plugin Name: Add Inventory
+*/
+
+//Exit if accessed directly
+if(!defined('ABSPATH')){
+	exit;
+}
+
+$path = plugin_dir_path(__FILE__);
+
+require_once ($path .  'admin/add-inventory.php');
+require_once ($path .  'admin/add-inventory-meta-boxes.php');
+require_once ($path .  'admin/add-inventory-footer.php');
+
+function addinv_admin_enqueue_scripts() {
+	
+	//These varibales allow us to target the post type and the post edit screen.
+	global $pagenow, $typenow;
+
+	if ( ($pagenow == 'post.php' or $pagenow == 'post-new.php') and $typenow == 'addinv' ) {
+		
+		//Plugin Main CSS File.
+		wp_enqueue_style( 'addinv-admin', plugin_dir_url( __FILE__ ) . '/css/add-inventory-admin.css');
+		
+		//Plugin Main JS File.
+		wp_enqueue_script( 'addinv-js', plugin_dir_url( __FILE__ ) . '/js/add-inventory-admin.js', array( 'jquery', 'jquery-ui-datepicker' ), '20160107', true );
+		
+		
+		//Plugin Uploader JS File.
+		wp_enqueue_media( 'addinv-js', plugin_dir_url( __FILE__ ) . '/js/uploader.js', array( 'jquery', 'jquery-ui-datepicker' ), '20160109', true );
+
+	}
+	
+}
+//This hook ensures our scripts and styles are only loaded in the admin.
+add_action( 'admin_enqueue_scripts', 'addinv_admin_enqueue_scripts' );
